@@ -2,6 +2,18 @@
 <html lang="fa" dir="rtl">
 <head>
   <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+  <script>
+firebase.auth().signInWithEmailAndPassword(
+  document.getElementById('babakanac@clinic.ir').value.trim(), 
+  document.getElementById('00112234').value.trim()
+).then((userCredential) => {
+  // ورود موفقیت‌آمیز
+  window.location.href = 'dashboard.html';
+}).catch((error) => {
+  document.getElementById('login-error').textContent = 'ورود ناموفق: ایمیل یا رمز اشتباه است.';
+});
+</script>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ورود به سیستم - کلینیک بابکان</title>
