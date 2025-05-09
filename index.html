@@ -2,19 +2,94 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ورود به سیستم - کلینیک بابکان</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('28822d41-b5ad-45d2-be6a-6163a46a3fbb.jpg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Vazir', sans-serif;
+    }
+
+    .login-box {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-box h2 {
+      margin-bottom: 1.5rem;
+      color: #4e73df;
+      font-size: 1.75rem;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #4e73df;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-box button:hover {
+      background-color: #3b61d1;
+    }
+
+    .login-error {
+      color: red;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="login-container">
-    <h1>ورود</h1>
+  <div class="login-box">
+    <h2>ورود به کلینیک بابکان</h2>
     <form id="login-form">
       <input type="text" id="username" placeholder="نام کاربری" required>
       <input type="password" id="password" placeholder="رمز عبور" required>
       <button type="submit">ورود</button>
+      <div class="login-error" id="login-error"></div>
     </form>
-    <div id="login-error" class="error"></div>
   </div>
-  <script src="scripts.js"></script>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (username === 'babakanac' && password === '00112234') {
+        window.location.href = 'dashboard.html';
+      } else {
+        document.getElementById('login-error').textContent = 'نام کاربری یا رمز عبور اشتباه است';
+      }
+    });
+  </script>
 </body>
 </html>
