@@ -1,257 +1,79 @@
-# Generate a complete dashboard.html file with all requested sections
-
-dashboard_html = """<!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<!DOCTYPE html>
+<html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>داشبورد کلینیک بابکان</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
-  <script src="scripts.js" defer></script>
+  <meta charset="UTF-8" />
+  <title>داشبورد کلینیک</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <style>
     body {
-      margin: 0;
-      font-family: 'Vazir', sans-serif;
-      background-color: #f1f4f9;
+      font-family: Tahoma, sans-serif;
+      direction: rtl;
+      background-color: #e8f0fe;
+      padding: 50px;
     }
-
-    .dashboard-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #4e73df;
-      color: white;
-      padding: 1rem 2rem;
-    }
-
-    .dashboard-container {
-      display: flex;
-    }
-
-    .sidebar {
-      width: 250px;
-      background-color: #fff;
-      padding: 1rem;
-      border-left: 1px solid #ddd;
-    }
-
-    .sidebar h3 {
-      margin-bottom: 1rem;
-      color: #4e73df;
-    }
-
-    .sidebar a {
-      display: block;
-      margin-bottom: 1rem;
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-    }
-
-    .sidebar input[type="text"] {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    .search-popup {
-      position: absolute;
-      background-color: white;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      max-height: 200px;
-      overflow-y: auto;
-      z-index: 999;
-      margin-top: 0.5rem;
-    }
-
-    .search-result {
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-    }
-
-    .search-result:hover {
-      background-color: #f1f1f1;
-    }
-
-    .main {
-      flex: 1;
-      padding: 2rem;
-    }
-
-    .today-tasks, .sticky-note, .stats {
-      background-color: white;
+    .dashboard-box {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
       border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
-
-    .sticky-note textarea {
-      width: 100%;
-      height: 120px;
-      border: 1px dashed #ccc;
+    .info {
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .logout-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 10px;
       border-radius: 8px;
-      padding: 0.75rem;
-      resize: vertical;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
-    }
-
-    .stat-box {
-      background-color: #f8f9fc;
-      padding: 1rem;
-      border: 1px solid #d1d3e2;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .stat-box h4 {
-      margin: 0.5rem 0;
-      font-size: 1.2rem;
-    }
-
-    .text-muted {
-      color: #6c757d;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="dashboard-header">
-    <div id="today-date"></div>
-    <div>کلینیک بابکان</div>
+
+  <div class="dashboard-box">
+    <h2>داشبورد کلینیک بابکان</h2>
+    <div class="info">
+      <p><strong>ایمیل کاربر:</strong> <span id="userEmail"></span></p>
+      <p><strong>UID کاربر:</strong> <span id="userUID"></span></p>
+    </div>
+    <button class="logout-btn" onclick="logout()">خروج</button>
   </div>
 
-  <div class="dashboard-container">
-    <div class="sidebar">
-      <h3>منو</h3>
-      <a href="dashboard.html">داشبورد</a>
-      <a href="patients-list.html">لیست بیماران</a>
-      <input type="text" id="search-input" placeholder="جستجوی بیمار...">
-      <div id="search-results" class="search-popup" style="display: none;"></div>
-    </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-    <div class="main">
-      <div class="today-tasks">
-        <h3>کارهای امروز در کلینیک</h3>
-        <ul id="today-tasks-list">
-          <li>در حال بارگذاری...</li>
-        </ul>
-      </div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA08vHjfTM18hyZUjTfNtBpt-oC0xmgKFE",
+      authDomain: "babakan-clinic.firebaseapp.com",
+      projectId: "babakan-clinic",
+      storageBucket: "babakan-clinic.firebasestorage.app",
+      messagingSenderId: "188319180301",
+      appId: "1:188319180301:web:383b8fc0dd0cdf06f95744",
+      measurementId: "G-QN4GJS4VYW"
+    };
 
-      <div class="sticky-note">
-        <h3>یادداشت‌ها (Sticky Note)</h3>
-        <textarea id="sticky-note" placeholder="یادداشت‌های امروز را اینجا بنویسید..."></textarea>
-      </div>
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-      <div class="stats">
-        <h3>آمار کلینیک</h3>
-        <div class="stats-grid">
-          <div class="stat-box">
-            <div class="text-muted">تعداد کل بیماران</div>
-            <h4 id="total-patients">--</h4>
-          </div>
-          <div class="stat-box">
-            <div class="text-muted">درمان با اپیوم</div>
-            <h4 id="opium-count">--</h4>
-          </div>
-          <div class="stat-box">
-            <div class="text-muted">درمان با متادون</div>
-            <h4 id="methadone-count">--</h4>
-          </div>
-          <div class="stat-box">
-            <div class="text-muted">درمان با بوپرونورفین</div>
-            <h4 id="bup-count">--</h4>
-          </div>
-          <div class="stat-box">
-            <div class="text-muted">داروی اپیوم باقی‌مانده</div>
-            <h4 id="opium-stock">-- سی‌سی</h4>
-          </div>
-          <div class="stat-box">
-            <div class="text-muted">متادون باقی‌مانده</div>
-            <h4 id="methadone-stock">-- سی‌سی</h4>
-          </div>
-          <div class="stat-box">
-            <div class="text-muted">بوپرونورفین باقی‌مانده</div>
-            <h4 id="bup-stock">-- سی‌سی</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    // نمایش ایمیل و UID از localStorage
+    document.getElementById("userEmail").textContent = localStorage.getItem("userEmail");
+    document.getElementById("userUID").textContent = localStorage.getItem("userUID");
 
-  <script>
-    // نمایش تاریخ امروز
-    document.getElementById('today-date').textContent = new Date().toLocaleDateString('fa-IR', {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-    });
-
-    // مدیریت یادداشت‌ها در LocalStorage
-    const sticky = document.getElementById('sticky-note');
-    sticky.value = localStorage.getItem('clinicSticky') || '';
-    sticky.addEventListener('input', () => {
-      localStorage.setItem('clinicSticky', sticky.value);
-    });
-
-    // نمونه برای کارهای امروز
-    const tasks = [
-      { file: '12345', name: 'حسین محمدی', task: 'تحویل دارو' },
-      { file: '54321', name: 'مهدی رضایی', task: 'تمدید نسخه' }
-    ];
-    const taskList = document.getElementById('today-tasks-list');
-    taskList.innerHTML = tasks.map(t => `<li>بیمار ${t.name} (پرونده ${t.file}) نیاز به ${t.task} دارد.</li>`).join('');
-
-    // آمار کلینیک (نمونه)
-    document.getElementById('total-patients').textContent = '25';
-    document.getElementById('opium-count').textContent = '10';
-    document.getElementById('methadone-count').textContent = '8';
-    document.getElementById('bup-count').textContent = '7';
-    document.getElementById('opium-stock').textContent = '750 سی‌سی';
-    document.getElementById('methadone-stock').textContent = '620 سی‌سی';
-    document.getElementById('bup-stock').textContent = '410 سی‌سی';
-
-    // جستجوی زنده بیماران
-    const dummyPatients = [
-      { name: 'حسین محمدی', file: '12345' },
-      { name: 'مهدی رضایی', file: '54321' },
-      { name: 'علی کریمی', file: '67890' }
-    ];
-
-    const searchInput = document.getElementById('search-input');
-    const searchResults = document.getElementById('search-results');
-
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.trim();
-      if (query.length === 0) {
-        searchResults.style.display = 'none';
-        return;
-      }
-
-      const filtered = dummyPatients.filter(p => 
-        p.name.includes(query) || p.file.includes(query)
-      );
-
-      searchResults.innerHTML = filtered.map(p =>
-        `<div class="search-result">${p.name} (پرونده ${p.file})</div>`
-      ).join('');
-
-      searchResults.style.display = filtered.length ? 'block' : 'none';
-    });
+    // تابع خروج
+    window.logout = function () {
+      signOut(auth).then(() => {
+        localStorage.clear();
+        window.location.href = "index.html";
+      });
+    };
   </script>
+
 </body>
 </html>
-"""
-
-# Save the new dashboard.html
-dashboard_path = "/mnt/data/dashboard.html"
-with open(dashboard_path, "w", encoding="utf-8") as f:
-    f.write(dashboard_html)
-
-dashboard_path
