@@ -17,7 +17,7 @@
 </head>
 <body class="font-vazir bg-gray-100 flex min-h-screen">
   <!-- منوی کناری -->
-  <aside id="sidebar" class="bg-gray-800 text-white w-64 p-6 space-y-4 transform transition-all duration-300">
+  <aside id="sidebar" class="bg-gray-800 text-white w-64 p-6 space-y-4 transform transition-all duration-300 fixed top-0 right-0 h-full z-50 hidden md:block">
     <h2 class="text-xl font-bold">منوی سامانه</h2>
     <a href="dashboard.html" class="flex items-center space-x-2 hover:text-teal-400"><i class="fas fa-home"></i><span>داشبورد</span></a>
     <a href="register.html" class="flex items-center space-x-2 hover:text-teal-400"><i class="fas fa-user-plus"></i><span>ثبت مددجو جدید</span></a>
@@ -29,9 +29,9 @@
   </aside>
 
   <!-- محتوای اصلی -->
-  <main class="flex-1 p-6">
+  <main class="flex-1 p-6 md:mr-64">
     <!-- دکمه منوی موبایل -->
-    <button id="menuToggle" class="md:hidden p-2 bg-gray-800 text-white rounded-md mb-4"><i class="fas fa-bars"></i></button>
+    <button id="menuToggle" class="md:hidden p-3 bg-gray-800 text-white rounded-md mb-4 fixed top-4 left-4 z-50"><i class="fas fa-bars text-xl"></i></button>
     <header class="text-2xl font-bold text-teal-600">کلینیک ترک اعتیاد بابکان</header>
     <div id="today" class="text-gray-600 mb-6"></div>
 
