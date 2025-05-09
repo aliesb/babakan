@@ -5,7 +5,7 @@
   <script>
 firebase.auth().signInWithEmailAndPassword(
   document.getElementById('babakanac@clinic.ir').value.trim(), 
-  document.getElementById('00112234').value.trim()
+  document.getElementById('password').value.trim()
 ).then((userCredential) => {
   // ورود موفقیت‌آمیز
   window.location.href = 'dashboard.html';
