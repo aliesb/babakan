@@ -53,7 +53,6 @@ window.searchPatient = async function (query) {
     return;
   }
   try {
-    // فرضاً API یا Firestore
     const snapshot = await getDocs(collection(db, "patients"));
     const patients = snapshot.docs
       .map(doc => doc.data())
@@ -101,7 +100,6 @@ window.editStock = function (type) {
 async function fetchDashboardStats() {
   document.getElementById("loading").classList.remove("hidden");
   try {
-    // داده‌های نمونه (باید به Firestore متصل شود)
     const data = {
       totalPatients: 35,
       opium: 12,
@@ -126,7 +124,6 @@ async function fetchDashboardStats() {
     document.getElementById("todayTasks").innerHTML = data.todayTasks.map(task => `<div class="mb-2">🔹 ${task}</div>`).join('');
     document.getElementById("alerts").innerHTML = data.alerts.map(alert => `<div class="mb-2">🔴 ${alert}</div>`).join('');
 
-    // نمودار
     const ctx = document.getElementById("patientChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -152,6 +149,7 @@ async function fetchDashboardStats() {
 
 // منوی موبایل
 document.getElementById("menuToggle").addEventListener("click", () => {
+  document.getElementById("sidebar").classList.toggle("hidden");
   document.getElementById("sidebar").classList.toggle("active");
 });
 
