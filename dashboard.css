@@ -1,0 +1,45 @@
+@font-face {
+  font-family: 'Vazir';
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.woff') format('woff');
+}
+
+body {
+  font-family: 'Vazir', Tahoma, sans-serif;
+  direction: rtl;
+}
+
+aside {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.card, .stat {
+  transition: transform 0.2s ease;
+}
+
+.card:hover, .stat:hover {
+  transform: translateY(-5px);
+}
+
+#loading {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  aside {
+    width: 0;
+    overflow: hidden;
+  }
+  aside.active {
+    width: 250px;
+  }
+  main {
+    margin-right: 0;
+  }
+  #menuToggle {
+    display: block;
+  }
+}
