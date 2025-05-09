@@ -1,0 +1,186 @@
+
+:root {
+    --primary: #4e73df;
+    --primary-light: #6c89f5;
+    --secondary: #36b9cc;
+    --warning: #f6c23e;
+    --danger: #e74a3b;
+    --white: #ffffff;
+    --border: #e3e6f0;
+    --text-muted: #858796;
+}
+
+body {
+    font-family: 'Vazir', sans-serif;
+    background-color: #f8f9fc;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--white);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    min-height: 100vh;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.clinic-logo {
+    width: 80px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+}
+
+.clinic-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.clinic-slogan {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #444;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.input-group input,
+.input-group select {
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+}
+
+.btn {
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.alert {
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* ساده‌سازی صفحه لاگین */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 100px auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.login-container input {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.error {
+    color: red;
+    margin-top: 1rem;
+    text-align: center;
+}
