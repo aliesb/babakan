@@ -145,16 +145,44 @@
     </form>
   </main>
 
-  <script>
-    function submitPatient(event) {
+  <!-- اتصال به supabase -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabaseUrl = 'https://udlksesnlzzoaorsdbhm.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkbGtzZXNubHp6b2FvcnNkYmhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NTU5NDIsImV4cCI6MjA2MjQzMTk0Mn0.Vje7gkLTiOnsx2Up_OTtKxRO3i94Oyxlsc1eQtHTA2Q';
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    window.submitPatient = async function(event) {
       event.preventDefault();
-      // داده‌ها را جمع‌آوری و ارسال یا ذخیره کنید
+
       const name = document.getElementById('name').value;
       const nationalId = document.getElementById('nationalId').value;
+      const birthdate = document.getElementById('birthdate').value;
       const treatment = document.getElementById('treatmentType').value;
+      const dose = document.getElementById('dose').value;
+      const startDate = document.getElementById('startDate').value;
+      const notes = document.getElementById('notes').value;
 
-      alert(`مددجو ${name} با درمان ${treatment} ثبت شد.`);
-      // اینجا می‌توانید داده‌ها را به سرور ارسال کنید
+      const { data, error } = await supabase
+        .from('patients')
+        .insert([{
+          name: name,
+          national_id: nationalId,
+          birthdate: birthdate,
+          treatment_type: treatment,
+          dose: dose,
+          start_date: startDate,
+          notes: notes
+        }]);
+
+      if (error) {
+        alert('❌ خطا در ثبت اطلاعات: ' + error.message);
+      } else {
+        alert('✅ اطلاعات مددجو با موفقیت ثبت شد!');
+        document.getElementById("patientForm").reset();
+      }
     }
   </script>
 </body>
