@@ -97,16 +97,6 @@
     button:hover {
       background-color: #16a085;
     }
-
-    .success {
-      color: green;
-      margin-top: 10px;
-    }
-
-    .error {
-      color: red;
-      margin-top: 10px;
-    }
   </style>
 </head>
 <body>
@@ -119,7 +109,11 @@
 
   <main>
     <header>➕ ثبت مددجو جدید</header>
-    <form id="patientForm" onsubmit="submitPatient(event)">
+    <form id="patientForm">
+      <div class="form-group">
+        <label for="fileNumber">شماره پرونده</label>
+        <input type="text" id="fileNumber" required>
+      </div>
       <div class="form-group">
         <label for="name">نام و نام خانوادگی</label>
         <input type="text" id="name" required>
@@ -153,19 +147,21 @@
         <textarea id="notes" rows="3"></textarea>
       </div>
       <button type="submit">ثبت اطلاعات مددجو</button>
-      <div id="message"></div>
     </form>
   </main>
 
   <script>
     const SUPABASE_URL = 'https://bcyoofwpemwqlgvaxseo.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeW9vZndwZW13cWxndmF4c2VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NTk3OTIsImV4cCI6MjA2MjQzNTc5Mn0.LDAgz9IYlb8fL82WO71Ra2XTP6N1SwV82wY2cHvueBU';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeW9vZndwZW13cWxndmF4c2VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NTk3OTIsImV4cCI6MjA2MjQzNTc5Mn0.LDAgz9IYlb8fL82WO71Ra2XTP6N1SwV82wY2cHvueBU';
 
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    async function submitPatient(event) {
-      event.preventDefault();
+    const form = document.getElementById('patientForm');
 
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const fileNumber = document.getElementById('fileNumber').value;
       const name = document.getElementById('name').value;
       const nationalId = document.getElementById('nationalId').value;
       const birthdate = document.getElementById('birthdate').value;
@@ -178,27 +174,25 @@
         .from('patients')
         .insert([
           {
-            name,
+            file_number: fileNumber,
+            name: name,
             national_id: nationalId,
-            birthdate,
+            birthdate: birthdate,
             treatment_type: treatmentType,
-            dose,
+            dose: dose,
             start_date: startDate,
-            notes
+            notes: notes
           }
         ]);
 
-      const messageDiv = document.getElementById('message');
       if (error) {
-        console.error('خطا:', error.message);
-        messageDiv.textContent = '❌ خطا در ثبت اطلاعات: ' + error.message;
-        messageDiv.className = 'error';
+        alert('❌ خطا در ثبت اطلاعات: ' + error.message);
+        console.error(error);
       } else {
-        messageDiv.textContent = '✅ مددجو با موفقیت ثبت شد.';
-        messageDiv.className = 'success';
-        document.getElementById('patientForm').reset();
+        alert('✅ اطلاعات با موفقیت ثبت شد.');
+        form.reset();
       }
-    }
+    });
   </script>
 </body>
 </html>
