@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ثبت مددجو جدید</title>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     body {
       font-family: 'Vazirmatn', Tahoma, sans-serif;
@@ -96,6 +97,16 @@
     button:hover {
       background-color: #16a085;
     }
+
+    .success {
+      color: green;
+      margin-top: 10px;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -142,46 +153,50 @@
         <textarea id="notes" rows="3"></textarea>
       </div>
       <button type="submit">ثبت اطلاعات مددجو</button>
+      <div id="message"></div>
     </form>
   </main>
 
-  <!-- اتصال به supabase -->
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  <script>
+    const SUPABASE_URL = 'https://bcyoofwpemwqlgvaxseo.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeW9vZndwZW13cWxndmF4c2VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NTk3OTIsImV4cCI6MjA2MjQzNTc5Mn0.LDAgz9IYlb8fL82WO71Ra2XTP6N1SwV82wY2cHvueBU';
 
-    const supabaseUrl = 'https://udlksesnlzzoaorsdbhm.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkbGtzZXNubHp6b2FvcnNkYmhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NTU5NDIsImV4cCI6MjA2MjQzMTk0Mn0.Vje7gkLTiOnsx2Up_OTtKxRO3i94Oyxlsc1eQtHTA2Q';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
-    window.submitPatient = async function(event) {
+    async function submitPatient(event) {
       event.preventDefault();
 
       const name = document.getElementById('name').value;
       const nationalId = document.getElementById('nationalId').value;
       const birthdate = document.getElementById('birthdate').value;
-      const treatment = document.getElementById('treatmentType').value;
+      const treatmentType = document.getElementById('treatmentType').value;
       const dose = document.getElementById('dose').value;
       const startDate = document.getElementById('startDate').value;
       const notes = document.getElementById('notes').value;
 
       const { data, error } = await supabase
         .from('patients')
-        .insert([{
-          name: name,
-          national_id: nationalId,
-          birthdate: birthdate,
-          treatment_type: treatment,
-          dose: dose,
-          start_date: startDate,
-          notes: notes
-        }]);
+        .insert([
+          {
+            name,
+            national_id: nationalId,
+            birthdate,
+            treatment_type: treatmentType,
+            dose,
+            start_date: startDate,
+            notes
+          }
+        ]);
 
+      const messageDiv = document.getElementById('message');
       if (error) {
-        alert('❌ خطا در ثبت اطلاعات: ' + error.message);
+        console.error('خطا:', error.message);
+        messageDiv.textContent = '❌ خطا در ثبت اطلاعات: ' + error.message;
+        messageDiv.className = 'error';
       } else {
-        alert('✅ اطلاعات مددجو با موفقیت ثبت شد!');
-        document.getElementById("patientForm").reset();
+        messageDiv.textContent = '✅ مددجو با موفقیت ثبت شد.';
+        messageDiv.className = 'success';
+        document.getElementById('patientForm').reset();
       }
     }
   </script>
