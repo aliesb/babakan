@@ -1,213 +1,220 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ثبت مددجو جدید</title>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;900&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Vazirmatn', Tahoma, sans-serif;
-      direction: rtl;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f7fb;
-      color: #333;
-      display: flex;
-      min-height: 100vh;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ثبت مددجو جدید</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fb;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+        }
 
-    aside {
-      width: 250px;
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-    }
+        aside {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
 
-    aside h2 {
-      margin-bottom: 30px;
-      font-size: 20px;
-    }
+        aside h2 {
+            margin-bottom: 30px;
+            font-size: 20px;
+        }
 
-    aside a {
-      color: white;
-      text-decoration: none;
-      margin: 10px 0;
-      font-weight: 600;
-      transition: 0.3s;
-    }
+        aside a {
+            color: white;
+            text-decoration: none;
+            margin: 10px 0;
+            font-weight: 600;
+            transition: 0.3s;
+        }
 
-    aside a:hover {
-      color: #1abc9c;
-    }
+        aside a:hover {
+            color: #1abc9c;
+        }
 
-    main {
-      flex-grow: 1;
-      padding: 30px;
-    }
+        main {
+            flex-grow: 1;
+            padding: 30px;
+        }
 
-    header {
-      font-size: 24px;
-      font-weight: 900;
-      margin-bottom: 20px;
-    }
+        header {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
 
-    form {
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.05);
-      max-width: 800px;
-    }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
+            max-width: 800px;
+        }
 
-    .form-group {
-      margin-bottom: 15px;
-    }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-    .form-group label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
 
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-family: inherit;
-      box-sizing: border-box;
-    }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
 
-    button {
-      background-color: #1abc9c;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-    }
+        button {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
 
-    button:hover {
-      background-color: #16a085;
-    }
-  </style>
+        button:hover {
+            background-color: #16a085;
+        }
+    </style>
 </head>
 <body>
-  <aside>
+<aside>
     <h2>منوی سامانه</h2>
     <a href="dashboard.html">🏠 داشبورد</a>
     <a href="patients.html">📄 لیست بیماران</a>
     <a href="register.html">➕ ثبت مددجو</a>
     <a href="medications.html">💊 مدیریت دارو</a>
     <a href="#" onclick="logout()">🚪 خروج</a>
-  </aside>
+</aside>
 
-  <main>
+<main>
     <header>➕ ثبت مددجو جدید</header>
     <form id="patientForm" onsubmit="submitPatient(event)">
-      <div class="form-group">
-        <label for="fileNumber">شماره پرونده</label>
-        <input type="text" id="fileNumber" required>
-      </div>
-      <div class="form-group">
-        <label for="name">نام و نام خانوادگی</label>
-        <input type="text" id="name" required>
-      </div>
-      <div class="form-group">
-        <label for="nationalId">کد ملی</label>
-        <input type="text" id="nationalId" required>
-      </div>
-      <div class="form-group">
-        <label for="birthdate">تاریخ تولد</label>
-        <input type="date" id="birthdate">
-      </div>
-      <div class="form-group">
-        <label for="treatmentType">نوع درمان</label>
-        <select id="treatmentType">
-          <option value="opium">اپیوم</option>
-          <option value="methadone">متادون</option>
-          <option value="bup">بوپرونورفین</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="dose">دوز مصرفی روزانه</label>
-        <input type="text" id="dose">
-      </div>
-      <div class="form-group">
-        <label for="startDate">تاریخ شروع درمان</label>
-        <input type="date" id="startDate">
-      </div>
-      <div class="form-group">
-        <label for="notes">یادداشت تکمیلی</label>
-        <textarea id="notes" rows="3"></textarea>
-      </div>
-      <button type="submit">ثبت اطلاعات مددجو</button>
+        <div class="form-group">
+            <label for="fileNumber">شماره پرونده</label>
+            <input type="text" id="fileNumber" required>
+        </div>
+        <div class="form-group">
+            <label for="name">نام و نام خانوادگی</label>
+            <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="nationalId">کد ملی</label>
+            <input type="text" id="nationalId" required>
+        </div>
+        <div class="form-group">
+            <label for="birthdate">تاریخ تولد</label>
+            <input type="date" id="birthdate">
+        </div>
+        <div class="form-group">
+            <label for="treatmentType">نوع درمان</label>
+            <select id="treatmentType">
+                <option value="opium">اپیوم</option>
+                <option value="methadone">متادون</option>
+                <option value="bup">بوپرونورفین</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dose">دوز مصرفی روزانه</label>
+            <input type="text" id="dose">
+        </div>
+        <div class="form-group">
+            <label for="startDate">تاریخ شروع درمان</label>
+            <input type="date" id="startDate">
+        </div>
+        <div class="form-group">
+            <label for="notes">یادداشت تکمیلی</label>
+            <textarea id="notes" rows="3"></textarea>
+        </div>
+        <button type="submit">ثبت اطلاعات مددجو</button>
     </form>
-  </main>
+</main>
 
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-  <script>
+<script>
+    // Initialize Firebase (replace with your actual configuration)
     const firebaseConfig = {
-      apiKey: "YAIzaSyA08vHjfTM18hyZUjTfNtBpt-oC0xmgKFE",
-      authDomain: "babakan-clinic.firebaseapp.com",
-      projectId: "babakan-clinic",
-      storageBucket: "babakan-clinic.firebasestorage.app",
-      messagingSenderId: "188319180301",
-      appId: "YO1:188319180301:web:383b8fc0dd0cdf06f95744"
+        apiKey: "AIzaSyA08vHjfTM18hyZUjTfNtBpt-oC0xmgKFE",
+        authDomain: "babakan-clinic.firebaseapp.com",
+        projectId: "babakan-clinic",
+        storageBucket: "babakan-clinic.firebasestorage.app",
+        messagingSenderId: "188319180301",
+        appId: "1:188319180301:web:383b8fc0dd0cdf06f95744"
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
+    // Redirect if not logged in
     auth.onAuthStateChanged(user => {
-      if (!user) window.location.href = "login.html";
+        if (!user) {
+            window.location.href = "login.html";
+        }
     });
 
+    // Logout function
     function logout() {
-      auth.signOut().then(() => window.location.href = "login.html");
+        auth.signOut().then(() => {
+            window.location.href = "login.html";
+        });
     }
-  </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script>
+    // Initialize Supabase (replace with your actual URL and key)
     const SUPABASE_URL = 'https://bcyoofwpemwqlgvaxseo.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeW9vZndwZW13cWxndmF4c2VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NTk3OTIsImV4cCI6MjA2MjQzNTc5Mn0.LDAgz9IYlb8fL82WO71Ra2XTP6N1SwV82wY2cHvueBU';
-
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     async function submitPatient(event) {
-      event.preventDefault();
+        event.preventDefault();
 
-      const formData = {
-        file_number: document.getElementById('fileNumber').value,
-        name: document.getElementById('name').value,
-        national_id: document.getElementById('nationalId').value,
-        birthdate: document.getElementById('birthdate').value,
-        treatment_type: document.getElementById('treatmentType').value,
-        dose: document.getElementById('dose').value,
-        start_date: document.getElementById('startDate').value,
-        notes: document.getElementById('notes').value
-      };
+        const formData = {
+            file_number: document.getElementById('id').value,
+            name: document.getElementById('name').value,
+            national_id: document.getElementById('national-id').value,
+            birthdate: document.getElementById('birthdate').value,
+            treatment_type: document.getElementById('treatment-type').value,
+            dose: document.getElementById('dose').value,
+            start_date: document.getElementById('start-date').value,
+            notes: document.getElementById('notes').value
+        };
 
-      console.log("Form data:", formData);
+        console.log("Form data:", formData);
 
-      const { data, error } = await supabase.from('patients').insert([formData]);
+        try {
+            const { data, error } = await supabase.from('patients').insert([formData]);
 
-      if (error) {
-        console.error("Error inserting patient:", error);
-        alert("❌ خطا در ثبت اطلاعات: " + error.message);
-      } else {
-        console.log("Patient inserted successfully:", data);
-        alert("✅ مددجو با موفقیت ثبت شد.");
-        document.getElementById('patientForm').reset();
-      }
+            if (error) {
+                console.error("Error inserting patient:", error);
+                alert("❌ خطا در ثبت اطلاعات: " + error.message);
+            } else {
+                console.log("Patient inserted successfully:", data);
+                alert("✅ مددجو با موفقیت ثبت شد.");
+                document.getElementById('patientForm').reset();
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An unexpected error occurred: " + error.message);
+        }
     }
-  </script>
+</script>
 </body>
 </html>
