@@ -198,11 +198,15 @@
         notes: document.getElementById('notes').value
       };
 
+      console.log("Form data:", formData);
+
       const { data, error } = await supabase.from('patients').insert([formData]);
 
       if (error) {
+        console.error("Error inserting patient:", error);
         alert("❌ خطا در ثبت اطلاعات: " + error.message);
       } else {
+        console.log("Patient inserted successfully:", data);
         alert("✅ مددجو با موفقیت ثبت شد.");
         document.getElementById('patientForm').reset();
       }
