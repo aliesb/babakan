@@ -161,39 +161,45 @@
         messagingSenderId: "188319180301",
         appId: "1:188319180301:web:383b8fc0dd0cdf06f95744"
     };
+
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Redirect if not logged in
+    // Check user authentication
     auth.onAuthStateChanged(user => {
         if (!user) {
             window.location.href = "login.html";
         }
     });
 
-    // Logout function
+    // Function to logout
     function logout() {
         auth.signOut().then(() => {
             window.location.href = "login.html";
+        }).catch(error => {
+            console.error("Logout error:", error);
+            alert("Failed to logout. Please try again.");
         });
     }
 
     // Initialize Supabase (replace with your actual URL and key)
     const SUPABASE_URL = 'https://bcyoofwpemwqlgvaxseo.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeW9vZndwZW13cWxndmF4c2VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NTk3OTIsImV4cCI6MjA2MjQzNTc5Mn0.LDAgz9IYlb8fL82WO71Ra2XTP6N1SwV82wY2cHvueBU';
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabase = supabase.createClient(https://bcyoofwpemwqlgvaxseo.supabase.co, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjeW9vZndwZW13cWxndmF4c2VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NTk3OTIsImV4cCI6MjA2MjQzNTc5Mn0.LDAgz9IYlb8fL82WO71Ra2XTP6N1SwV82wY2cHvueBU);
 
+    // Function to handle form submission
     async function submitPatient(event) {
         event.preventDefault();
 
         const formData = {
-            file_number: document.getElementById('id').value,
+            file_number: document.getElementById('fileNumber').value,
             name: document.getElementById('name').value,
-            national_id: document.getElementById('national-id').value,
+            national_id: document.getElementById('nationalId').value,
             birthdate: document.getElementById('birthdate').value,
-            treatment_type: document.getElementById('treatment-type').value,
+            treatment_type: document.getElementById('treatmentType').value,
             dose: document.getElementById('dose').value,
-            start_date: document.getElementById('start-date').value,
+            start_date: document.getElementById('startDate').value,
             notes: document.getElementById('notes').value
         };
 
@@ -201,6 +207,7 @@
 
         try {
             const { data, error } = await supabase.from('patients').insert([formData]);
+            console.log('supabase res', {data, error})
 
             if (error) {
                 console.error("Error inserting patient:", error);
