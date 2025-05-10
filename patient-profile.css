@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'Vazir';
+    src: url('https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.woff') format('woff');
+}
+
+body {
+    font-family: 'Vazir', Tahoma, sans-serif;
+    direction: rtl;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fb;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.patient-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.date-display {
+    display: flex;
+    flex-direction: column;
+}
+
+#today-date {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#today-day {
+    font-size: 1.1em;
+    color: #ccc;
+}
+
+.patient-info {
+    display: flex;
+    align-items: center;
+}
+
+#drug-indicator {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+#patient-name {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.calendar-container {
+    padding: 20px;
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.day:hover {
+    background-color: #f0f0f0;
+}
+
+.delivery-day {
+    background-color: #4caf50;
+    color: white;
+}
+
+.delivery-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.deliver-button {
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.deliver-button:hover {
+    background-color: #16a085;
+}
+
+.deliver-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* استایل‌های بیشتر برای واکنش‌گرایی و ظاهر بهتر */
+@media (max-width: 600px) {
+    .container {
+        margin: 10px;
+    }
+
+    .patient-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .patient-info {
+        margin-top: 10px;
+    }
+
+    #today-date {
+        font-size: 1.2em;
+    }
+
+    #patient-name {
+        font-size: 1.5em;
+    }
+}
