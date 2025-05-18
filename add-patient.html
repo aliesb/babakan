@@ -7,14 +7,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4e73df;
-            --primary-light: #6c89f5;
-            --secondary: #36b9cc;
-            --warning: #f6c23e;
-            --danger: #e74a3b;
+            --primary: #007bff;
+            --primary-light: #e1f5fe;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --light: #f8f9fa;
+            --dark: #343a40;
             --white: #ffffff;
-            --border: #e3e6f0;
-            --text-muted: #858796;
+            --border: #dee2e6;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 0.5rem;
         }
 
         body {
@@ -22,8 +27,8 @@
             direction: rtl;
             margin: 0;
             padding: 0;
-            background-color: #f5f7fb;
-            color: #333;
+            background: url('28822d41-b5ad-45d2-be6a-6163a46a3fbb.jpg') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             min-height: 100vh;
         }
@@ -36,11 +41,18 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            overflow-y: auto;
+            z-index: 10;
         }
 
         aside h2 {
             margin-bottom: 30px;
             font-size: 20px;
+            font-weight: bold;
         }
 
         aside a {
@@ -49,279 +61,297 @@
             margin: 10px 0;
             font-weight: 600;
             transition: 0.3s;
+            display: block;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
         }
 
         aside a:hover {
-            color: #1abc9c;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        aside .active {
+            background-color: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
         }
 
         main {
             flex-grow: 1;
-            padding: 30px;
+            padding: 2rem;
+            margin-right: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         header {
-            font-size: 24px;
-            font-weight: 900;
-            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            font-size: 1.5rem;
+            width: 100%;
         }
 
         form {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 0 12px rgba(0,0,0,0.05);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
             max-width: 800px;
+            width: 100%;
+            margin-bottom: 2rem;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
             font-weight: 600;
-            margin-bottom: 5px;
         }
 
-        .form-group input, .form-group select, .form-group textarea {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: inherit;
-            box-sizing: border-box;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
         }
 
         button {
-            background-color: #1abc9c;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
             font-weight: bold;
-            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            font-size: 1rem;
+            border: none;
         }
 
         button:hover {
-            background-color: #16a085;
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
         }
 
-        /* اضافی: استایل‌های مدرن */
-        .main-wrapper {
-            display: flex;
-            width: 100%;
-        }
-
-        .content-area {
-            flex-grow: 1;
-            padding: 2rem;
-            background-color: #f8f9fc;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .user-avatar {
-            width: 36px;
-            height: 36px;
+        button.primary {
             background-color: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
+            color: var(--white);
         }
 
-        .form-card {
-            background-color: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            max-width: 900px;
-            width: 100%;
-            align-self: center;
+        button.primary:hover {
+            background-color: #0056b3;
         }
 
-        .patient-form-grid {
-            display: grid;
-            gap: 1.5rem;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
         }
 
         .form-fieldset {
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             padding: 1.5rem;
             margin-bottom: 1.5rem;
-            grid-column: 1 / -1;
+            background-color: var(--white);
         }
 
         .form-fieldset legend {
             font-weight: bold;
             color: var(--primary);
             padding: 0 0.5rem;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-bottom: 1rem;
+            display: inline-block;
+            background-color: var(--white);
         }
 
-        .input-group {
+        .patient-form-grid {
+            display: grid;
+            grid-gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        #search-container {
+            margin-bottom: 1rem;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            margin-bottom: 1rem;
+            align-items: flex-start;
         }
 
-        .input-group:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .input-group label {
-            margin-bottom: 0.6rem;
-            font-weight: 600;
-            color: #555;
-            font-size: 0.95rem;
-        }
-
-        .input-group input,
-        .input-group select,
-        .input-group textarea {
-            padding: 0.9rem;
+        #search-box {
+            width: 100%;
+            padding: 0.75rem;
             border: 1px solid var(--border);
-            border-radius: 8px;
-            font-family: 'Vazirmatn', sans-serif;
+            border-radius: var(--border-radius);
             font-size: 1rem;
+            margin-bottom: 0.5rem;
             transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
 
-        .input-group input:focus,
-        .input-group select:focus,
-        .input-group textarea:focus {
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.2);
+        #search-box:focus {
+            border-color: var(--primary);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
         }
 
-        .btn {
-            padding: 0.75rem 1.25rem;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
+        #search-results {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            left: auto;
+            background-color: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 100;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            width: 280px;
+        }
+
+        #search-results ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #search-results li {
+            padding: 0.5rem 1rem;
             cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            white-space: nowrap;
         }
 
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        }
-
-        .btn-primary:hover {
+        #search-results li:hover {
             background-color: var(--primary-light);
-            transform: translateY(-2px);
+            color: var(--white);
         }
 
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
+        #search-results li.no-results {
+            color: var(--muted-text);
         }
 
-        .alert {
+        @media (max-width: 576px) {
+            .patient-form-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 1rem;
+            }
+            aside {
+                width: 100%;
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                height: auto;
+                overflow-y: visible;
+                padding: 1rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+            }
+            aside h2 {
+                display: none;
+            }
+            aside a {
+                margin: 0;
+                text-align: center;
+            }
+            main {
+                margin-right: 0;
+                margin-bottom: 5rem;
+            }
+            #search-results {
+                width: 90%;
+                right: 5%;
+                left: auto;
+            }
+        }
+
+        .date-display {
+            color: var(--dark);
             margin-bottom: 1rem;
-            padding: 0.75rem 1rem;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        /* Login Styles */
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            margin: 100px auto;
-            background-color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
-        }
-
-        .login-container input {
-            width: 100%;
-            margin-bottom: 1rem;
-        }
-
-        .error {
-            color: red;
-            margin-top: 1rem;
+            font-size: 1rem;
             text-align: center;
         }
     </style>
 </head>
 <body>
-<div class="main-wrapper">
     <aside>
         <h2>منوی سامانه</h2>
-        <a href="dashboard.html">🏠 داشبورد</a>
-        <a href="patients.html">📄 لیست بیماران</a>
-        <a href="add-patient.html">➕ ثبت مددجو</a>
+        <div class="date-display">
+            <span id="today-date"></span>
+            <span id="today-day"></span>
+        </div>
+        <a href="dashboard.html" class="">🏠 داشبورد</a>
+        <a href="patients.html" class="">📄 لیست بیماران</a>
+        <div id="search-container">
+            <input type="text" id="search-box" placeholder="جستجوی بیمار..." autocomplete="off">
+            <div id="search-results">
+                <ul></ul>
+            </div>
+        </div>
+        <a href="add-patient.html" class="active">➕ ثبت مددجو</a>
         <a href="medications.html">💊 مدیریت دارو</a>
         <a href="#" onclick="logout()">🚪 خروج</a>
     </aside>
 
-    <main class="content-area">
+    <main>
         <header>➕ ثبت مددجو جدید</header>
         <form id="patientForm" class="patient-form-grid" onsubmit="submitPatient(event)">
             <fieldset class="form-fieldset">
                 <legend>اطلاعات فردی</legend>
-                <div class="input-group">
+                <div class="form-group">
                     <label for="fileNumber">شماره پرونده</label>
                     <input type="text" id="fileNumber" required>
                 </div>
-                <div class="input-group">
+                <div class="form-group">
                     <label for="fullName">نام و نام خانوادگی</label>
                     <input type="text" id="fullName" required>
                 </div>
-                <div class="input-group">
+                <div class="form-group">
                     <label for="nationalId">کد ملی</label>
                     <input type="text" id="nationalId" required>
                 </div>
-                <div class="input-group">
+                <div class="form-group">
                     <label for="phone">شماره تماس</label>
                     <input type="tel" id="phone" required>
                 </div>
@@ -359,19 +389,18 @@
                 </div>
             </fieldset>
 
-            <button type="submit">ثبت اطلاعات مددجو</button>
+            <button type="submit" class="btn btn-primary">ثبت اطلاعات مددجو</button>
         </form>
     </main>
 </div>
 
 <script type="module">
-    // Import necessary Firebase modules
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, Timestamp, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
     import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js';
+    import { getStorage } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js';
+    import { toDateObject } from './date-converter.js'; // فرض بر این است که این فایل در کنار فایل HTML شما قرار دارد.
 
-    // Firebase configuration
     const firebaseConfig = {
         apiKey: "AIzaSyA08vHjfTM18hyZUjTfNtBpt-oC0xmgKFE",
         authDomain: "babakan-clinic.firebaseapp.com",
@@ -381,20 +410,17 @@
         appId: "1:188319180301:web:383b8fc0dd0cdf06f95744"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
     const storage = getStorage(app);
 
-    // Check user authentication
     auth.onAuthStateChanged(user => {
         if (!user) {
             window.location.href = "login.html";
         }
     });
 
-    // Function to logout
     function logout() {
         auth.signOut().then(() => {
             window.location.href = "login.html";
@@ -404,9 +430,6 @@
         });
     }
 
-
-
-    // Function to handle form submission
     async function submitPatient(event) {
         event.preventDefault();
 
@@ -414,30 +437,26 @@
         const fullName = document.getElementById('fullName').value;
         const nationalId = document.getElementById('nationalId').value;
         const phone = document.getElementById('phone').value;
-        const birthdateInput = document.getElementById('birthdate').value;  // Changed to ID
+        const birthdateInput = document.getElementById('birthdate').value;
         const treatmentType = document.getElementById('treatmentType').value;
         const dose = document.getElementById('dose').value;
         const startDate = document.getElementById('startDate').value;
         const deliveryDay = document.getElementById('deliveryDay').value;
         const notes = document.getElementById('notes').value;
 
-
-        // Convert birthdate to Jalali year (only year)
         let birthYear = '';
         if (birthdateInput) {
             const gregorianDate = new Date(birthdateInput);
-             // Use a library like `date-fns-jalali` for accurate Jalali conversion
-            const jalaliDate =  new Date(gregorianDate).toLocaleDateString('fa-IR');
-            birthYear = jalaliDate.split('/')[0]; // Extract the year
+            const jalaliDate = new Date(gregorianDate).toLocaleDateString('fa-IR');
+            birthYear = jalaliDate.split('/')[0];
         }
-
 
         const formData = {
             file_number: fileNumber,
             name: fullName,
             national_id: nationalId,
             phone: phone,
-            birthdate: birthYear, // Store only the year
+            birthdate: birthYear,
             treatment_type: treatmentType,
             dose: dose,
             start_date: startDate,
@@ -459,6 +478,88 @@
             alert("An unexpected error occurred: " + error.message);
         }
     }
+
+    function displayCurrentDate() {
+        const today = new Date();
+        const jalaliDate = today.toLocaleDateString('fa-IR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        const dayName = jalaliDate.split(' ')[0];
+        const formattedDate = jalaliDate.replace(dayName, '').trim();
+
+        document.getElementById('today-date').textContent = formattedDate;
+        document.getElementById('today-day').textContent = dayName;
+    }
+
+    displayCurrentDate();
+
+    const searchBox = document.getElementById('search-box');
+    const searchResultsContainer = document.getElementById('search-results');
+    let allPatients = [];
+
+    async function fetchPatients() {
+        try {
+            const patientsSnapshot = await getDocs(collection(db, "patients"));
+            allPatients = patientsSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+        } catch (error) {
+            console.error("Error fetching patients:", error);
+            alert("Failed to fetch patients. Please try again.");
+        }
+    }
+
+    function findMatches(searchTerm, patients) {
+        if (!searchTerm) return [];
+        const regex = new RegExp(searchTerm, 'i');
+        return patients.filter(patient => {
+            return regex.test(patient.name) || regex.test(patient.file_number);
+        });
+    }
+
+    function displayMatches() {
+        const matchArray = findMatches(this.value, allPatients);
+        const resultsHTML = matchArray.map(patient => {
+            return `
+                <li data-id="${patient.id}">
+                    ${patient.name} - ${patient.file_number}
+                </li>
+            `;
+        }).join('');
+        searchResultsContainer.innerHTML = resultsHTML || `<li class="no-results">بیماری یافت نشد.</li>`;
+        searchResultsContainer.style.display = this.value ? 'block' : 'none';
+    }
+
+    searchResultsContainer.addEventListener('click', (event) => {
+        const patientId = event.target.dataset.id;
+        if (patientId) {
+            // جهت تست:
+            console.log(`Selected patient ID: ${patientId}`);
+            // alert(`Selected patient ID: ${patientId}`); // می توانید بجای لاگ، از یک مودال یا تغییر مسیر استفاده کنید.
+            window.location.href = `patient-profile.html?id=${patientId}`;
+        }
+        searchResultsContainer.style.display = 'none';
+        searchBox.value = '';
+    });
+
+    searchBox.addEventListener('input', displayMatches);
+
+    window.addEventListener('load', async () => {
+        await fetchPatients();
+    });
+</script>
+<script>
+    function toDateObject(dateString) {
+        const parts = dateString.split('/').map(Number);
+        if (parts.length !== 3) {
+            return null;
+        }
+        const [year, month, day] = parts;
+        if (isNaN(year) || isNaN(month) || isNaN(day))
+          return null;
+        const gregorianDate = new Date(year, month - 1, day);
+        return gregorianDate;
+    }
+    window.toDateObject = toDateObject;
 </script>
 </body>
 </html>
