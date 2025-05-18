@@ -1,124 +1,272 @@
+styles.css:
 :root {
-    --primary: #4e73df;
-    --primary-light: #6c89f5;
-    --secondary: #36b9cc;
-    --warning: #f6c23e;
-    --danger: #e74a3b;
+    --primary: #007bff;
+    --primary-light: #e1f5fe;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+    --light: #f8f9fa;
+    --dark: #343a40;
     --white: #ffffff;
-    --border: #e3e6f0;
-    --text-muted: #858796;
+    --border: #dee2e6;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 0.5rem;
 }
 
 body {
-    font-family: 'Vazir', sans-serif; /* تغییر به Vazir برای سازگاری */
-    background-color: #f8f9fc;
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+    direction: rtl;
     margin: 0;
     padding: 0;
-    direction: rtl;
-    display: flex; /* اضافه شده برای چیدمان تمام صفحه */
-    min-height: 100vh; /* اطمینان از اشغال تمام ارتفاع صفحه */
-}
-
-/* این بخش به جای .container قبلی شما برای چیدمان اصلی استفاده می‌شود */
-.main-wrapper {
+    background: url('28822d41-b5ad-45d2-be6a-6163a46a3fbb.jpg') no-repeat center center fixed;
+    background-size: cover;
     display: flex;
-    width: 100%;
-}
-
-.sidebar {
-    width: 250px;
-    background-color: var(--white);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    padding: 1rem;
     min-height: 100vh;
 }
 
-.sidebar-header {
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 2rem;
+    max-width: 800px;
+    width: 100%;
+}
+
+header {
+    color: var(--primary);
     text-align: center;
     margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: 1.5rem;
 }
 
-.clinic-logo {
-    width: 80px;
-    border-radius: 50%;
+form {
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
     margin-bottom: 0.5rem;
+    color: var(--dark);
+    font-weight: 600;
 }
 
-.clinic-name {
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+button {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
     font-weight: bold;
-    font-size: 1.2rem;
-}
-
-.clinic-slogan {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-.sidebar-menu {
-    list-style: none;
-    padding: 0;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
     cursor: pointer;
-    border-radius: 6px;
-    color: #444;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* اضافه شده */
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    font-size: 1rem;
+    border: none;
 }
 
-.menu-item:hover,
-.menu-item.active {
+button:hover {
     background-color: var(--primary-light);
-    color: white;
+    transform: translateY(-2px);
 }
 
-/* .main-content قبلی شما برای داشبورد بود. برای فرم از .content-area استفاده می‌کنیم */
-.main-content {
-    flex-grow: 1;
-    padding: 2rem;
+button.primary {
+    background-color: var(--primary);
+    color: var(--white);
 }
 
-/* جدید: برای محتوای اصلی صفحات به جز داشبورد (مثل add-patient) */
-.content-area {
-    flex-grow: 1;
-    padding: 2rem;
-    background-color: #f8f9fc;
+button.primary:hover {
+    background-color: #0056b3;
+}
+
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.form-fieldset {
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background-color: var(--white);
+}
+
+.form-fieldset legend {
+    font-weight: bold;
+    color: var(--primary);
+    padding: 0 0.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    background-color: var(--white);
+}
+
+.patient-form-grid {
+    display: grid;
+    grid-gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+#search-container {
+    margin-bottom: 1rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
+#search-box {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.header-title {
-    font-size: 1.8rem; /* بزرگتر */
-    font-weight: bold;
-    color: #333;
+#search-box:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--text-muted);
+#search-results {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: auto;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    width: 280px;
 }
 
-.user-avatar {
-    width: 36px;
-    height: 36px;
-    background-color: var(--primary);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#search-results ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#search-results li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    white-space: nowrap;
+}
+
+#search-results li:hover {
+    background-color: var(--primary-light);
+    color: var(--white);
+}
+
+#search-results li.no-results {
+    color: var(--muted-text);
+}
+
+@media (max-width: 576px) {
+    .patient-form-grid {
+        grid-template-columns: 1fr;
+    }
+    .container {
+        padding: 1rem;
+    }
+    aside {
+        width: 100%;
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        height: auto;
+        overflow-y: visible;
+        padding: 1rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    aside h2 {
+        display: none;
+    }
+    aside a {
+        margin: 0;
+        text-align: center;
+    }
+    main {
+        margin-right: 0;
+        margin-bottom: 5rem;
+    }
+    #search-results {
+        width: 90%;
+        right: 5%;
+        left: auto;
+    }
+}
+
+.date-display {
+    color: var(--dark);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+</style>
+```html
+scripts.js:
+import { initializeApp } from "[https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js](https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js)";
+import { getFirestore, collection, addDoc, Timestamp, getDocs, query, where } from "[https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js](https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js)";
+import { getAuth, signOut } from "[https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js](https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js)";
+import { getStorage } from '[https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js](https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js)';
+import { toDateObject } from './date-converter.js';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyA08vHjfTM18hyZUjTfNtBpt-oC0xmgKFE",
+        authDomain: "babakan-clinic.firebaseapp.com",
+        projectId: "babakan-clinic"
