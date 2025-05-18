@@ -1,5 +1,5 @@
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
+    apiKey: "AIzaSyA08vHjfTM18hyZUjTfNtBpt-oC0xmgKFE",
     authDomain: "babakan-clinic.firebaseapp.com",
     projectId: "babakan-clinic",
     storageBucket: "babakan-clinic.appspot.com",
