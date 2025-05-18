@@ -10,7 +10,7 @@
 }
 
 body {
-    font-family: 'Vazir', sans-serif;
+    font-family: 'Vazir', sans-serif; /* تغییر به Vazir برای سازگاری */
     background-color: #f8f9fc;
     margin: 0;
     padding: 0;
@@ -19,6 +19,7 @@ body {
     min-height: 100vh; /* اطمینان از اشغال تمام ارتفاع صفحه */
 }
 
+/* این بخش به جای .container قبلی شما برای چیدمان اصلی استفاده می‌شود */
 .main-wrapper {
     display: flex;
     width: 100%;
@@ -66,6 +67,7 @@ body {
     cursor: pointer;
     border-radius: 6px;
     color: #444;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* اضافه شده */
 }
 
 .menu-item:hover,
@@ -74,201 +76,49 @@ body {
     color: white;
 }
 
+/* .main-content قبلی شما برای داشبورد بود. برای فرم از .content-area استفاده می‌کنیم */
 .main-content {
     flex-grow: 1;
     padding: 2rem;
 }
 
-.content-area { /* جدید: برای محتوای اصلی صفحات به جز داشبورد */
+/* جدید: برای محتوای اصلی صفحات به جز داشبورد (مثل add-patient) */
+.content-area {
     flex-grow: 1;
     padding: 2rem;
-    background-color: #f8f9fc; /* استفاده از پس‌زمینه روشن برای محتوای اصلی */
+    background-color: #f8f9fc;
     display: flex;
     flex-direction: column;
 }
-
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-    padding-bottom: 1rem; /* اضافه شده برای جداسازی از محتوا */
-    border-bottom: 1px solid var(--border); /* اضافه شده برای جداسازی */
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
 }
 
 .header-title {
-    font-size: 1.8rem; /* عنوان بزرگتر */
+    font-size: 1.8rem; /* بزرگتر */
     font-weight: bold;
-    color: #333; /* رنگ تیره‌تر برای خوانایی بهتر */
+    color: #333;
 }
 
 .user-profile {
     display: flex;
     align-items: center;
-    gap: 0.75rem; /* فاصله کمتر */
+    gap: 0.75rem;
     color: var(--text-muted);
 }
 
 .user-avatar {
-    width: 36px; /* کمی کوچکتر */
-    height: 36px; /* کمی کوچکتر */
+    width: 36px;
+    height: 36px;
     background-color: var(--primary);
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    font-size: 0.9rem; /* فونت کوچکتر */
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem; /* فاصله بین گروه‌های ورودی در یک فیلدست */
-}
-
-.input-group:last-of-type {
-    margin-bottom: 0; /* عدم اعمال margin بعد از آخرین گروه ورودی */
-}
-
-
-.input-group label {
-    margin-bottom: 0.6rem; /* فاصله بیشتر از قبل */
-    font-weight: 600; /* کمی پررنگ‌تر */
-    color: #555; /* رنگ خاکستری تیره */
-    font-size: 0.95rem; /* کمی بزرگتر */
-}
-
-.input-group input,
-.input-group select {
-    padding: 0.9rem; /* padding کمی بزرگتر */
-    border: 1px solid var(--border);
-    border-radius: 8px; /* گوشه‌های گردتر */
-    font-family: 'Vazir', sans-serif; /* اطمینان از فونت وزیر */
-    font-size: 1rem;
-    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* انیمیشن برای فوکوس */
-}
-
-.input-group input:focus,
-.input-group select:focus {
-    border-color: var(--primary-light);
-    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.2); /* سایه روشن‌تر روی فوکوس */
-    outline: none;
-}
-
-.btn {
-    padding: 0.75rem 1.25rem;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.btn-primary {
-    background-color: var(--primary);
-    color: white;
-}
-
-.btn-outline {
-    background-color: transparent;
-    border: 1px solid var(--primary);
-    color: var(--primary);
-}
-
-.alert {
-    margin-bottom: 1rem;
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.alert-error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-/* ساده‌سازی صفحه لاگین (استایل‌های موجود از فایل شما) */
-.login-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 100px auto;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
-}
-
-.login-container input {
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-.error {
-    color: red;
-    margin-top: 1rem;
-    text-align: center;
-}
-
-/* استایل‌های جدید برای فرم ثبت مددجو */
-.form-card {
-    background-color: var(--white);
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* سایه زیباتر */
-    padding: 2.5rem; /* padding بیشتر */
-    margin-bottom: 2rem;
-    max-width: 900px; /* محدود کردن عرض فرم */
-    width: 100%;
-    align-self: center; /* فرم را در مرکز ناحیه محتوا قرار می‌دهد */
-}
-
-.patient-form-grid {
-    display: grid;
-    gap: 1.5rem; /* فاصله بین آیتم‌های گرید */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* گرید ریسپانسیو */
-}
-
-.form-fieldset {
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem; /* فاصله بین فیلدست‌ها */
-    grid-column: 1 / -1; /* فیلدست‌ها تمام عرض گرید را اشغال کنند */
-}
-
-.form-fieldset legend {
-    font-weight: bold;
-    color: var(--primary);
-    padding: 0 0.5rem;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-}
-
-.submit-button {
-    grid-column: 1 / -1; /* دکمه تمام عرض گرید را اشغال کند */
-    padding: 1rem 1.5rem;
-    font-size: 1.1rem;
-    margin-top: 1rem;
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.submit-button:hover {
-    background-color: var(--primary-light);
-    transform: translateY(-2px); /* کمی بالا رفتن دکمه هنگام هاور */
-}
-
-/* رفع مشکل بسته شدن CSS در فایل اصلی شما */
-/* حذف این } اضافه در پایان فایل styles.css */
-/* } */
