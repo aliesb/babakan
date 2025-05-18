@@ -3,8 +3,8 @@ const firebaseConfig = {
     authDomain: "babakan-clinic.firebaseapp.com",
     projectId: "babakan-clinic",
     storageBucket: "babakan-clinic.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    messagingSenderId: "188319180301",
+        appId: "1:188319180301:web:383b8fc0dd0cdf06f95744"
 };
 
 firebase.initializeApp(firebaseConfig);
