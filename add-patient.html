@@ -4,57 +4,90 @@
   <meta charset="UTF-8" />
   <title>ثبت مددجو جدید</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <link rel="stylesheet" href="styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"> </head>
 <body>
-  <div class="container">
-    <h2>ثبت اطلاعات مددجو جدید</h2>
-    <form id="patientForm">
+  <div class="main-wrapper"> <div class="sidebar">
+      <div class="sidebar-header">
+        <img src="clinic-logo.png" alt="لوگو کلینیک" class="clinic-logo"> <div class="clinic-name">کلینیک بابکان</div>
+        <div class="clinic-slogan">درمان ریشه‌ای، زندگی جدید</div>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="menu-item"><a href="dashboard.html"><i class="fas fa-home"></i> <span>داشبورد</span></a></li>
+        <li class="menu-item active"><a href="add-patient.html"><i class="fas fa-user-plus"></i> <span>ثبت مددجو جدید</span></a></li>
+        <li class="menu-item"><a href="patients.html"><i class="fas fa-list"></i> <span>لیست بیماران</span></a></li>
+        <li class="menu-item"><a href="medications.html"><i class="fas fa-capsules"></i> <span>مدیریت دارو</span></a></li>
+        <li class="menu-item"><a href="#" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> <span>خروج</span></a></li>
+      </ul>
+    </div>
 
-      <fieldset>
-        <legend>اطلاعات فردی</legend>
+    <div class="content-area">
+      <header class="header">
+        <h1 class="header-title">ثبت اطلاعات مددجو جدید</h1>
+        <div class="user-profile">
+          <span class="user-avatar">AD</span> <span>مدیر سیستم</span>
+        </div>
+      </header>
 
-        <label>نام کامل</label>
-        <input type="text" id="name" required>
+      <div class="form-card">
+        <form id="patientForm" class="patient-form-grid">
 
-        <label>سال تولد</label>
-        <input type="number" id="birthYear" min="1300" max="1500" required>
+          <fieldset class="form-fieldset">
+            <legend>اطلاعات فردی</legend>
+            <div class="input-group">
+              <label for="name">نام کامل</label>
+              <input type="text" id="name" placeholder="نام و نام خانوادگی مددجو" required>
+            </div>
+            <div class="input-group">
+              <label for="birthYear">سال تولد</label>
+              <input type="number" id="birthYear" min="1300" max="1500" placeholder="مثال: 1370" required>
+            </div>
+            <div class="input-group">
+              <label for="nationalId">کد ملی</label>
+              <input type="text" id="nationalId" pattern="\d{10}" title="کد ملی باید 10 رقم باشد" placeholder="مثال: 1234567890" required>
+            </div>
+            <div class="input-group">
+              <label for="phone">شماره تماس</label>
+              <input type="tel" id="phone" placeholder="مثال: 09123456789" required>
+            </div>
+          </fieldset>
 
-        <label>کد ملی</label>
-        <input type="text" id="nationalId" pattern="\d{10}" required>
+          <fieldset class="form-fieldset">
+            <legend>اطلاعات درمانی</legend>
+            <div class="input-group">
+              <label for="treatmentType">نوع درمان</label>
+              <select id="treatmentType" required>
+                <option value="">انتخاب کنید...</option>
+                <option>نگهدارنده شربت اپیوم</option>
+                <option>نگهدارنده شربت متادون</option>
+                <option>نگهدارنده قرص بوپرونورفین</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="dailyDose">دوز روزانه (مثلاً 18 سی‌سی)</label>
+              <input type="text" id="dailyDose" placeholder="مثال: 18 سی‌سی" required>
+            </div>
+            <div class="input-group">
+              <label for="treatmentDuration">مدت دوره درمان (روز)</label>
+              <input type="number" id="treatmentDuration" min="1" placeholder="مثال: 90" required>
+            </div>
+            <div class="input-group">
+              <label for="deliveryInterval">فاصله روزهای تحویل (مثلاً هر 14 روز)</label>
+              <input type="number" id="deliveryInterval" min="1" placeholder="مثال: 14" required>
+            </div>
+          </fieldset>
 
-        <label>شماره تماس</label>
-        <input type="tel" id="phone" required>
-      </fieldset>
-
-      <fieldset>
-        <legend>اطلاعات درمانی</legend>
-
-        <label>نوع درمان</label>
-        <select id="treatmentType" required>
-          <option value="">انتخاب کنید...</option>
-          <option>نگهدارنده شربت اپیوم</option>
-          <option>نگهدارنده شربت متادون</option>
-          <option>نگهدارنده قرص بوپرونورفین</option>
-        </select>
-
-        <label>دوز روزانه (مثلاً 18 سی‌سی)</label>
-        <input type="text" id="dailyDose" required>
-
-        <label>مدت دوره درمان (روز)</label>
-        <input type="number" id="treatmentDuration" required>
-
-        <label>فاصله روزهای تحویل (مثلاً هر 14 روز)</label>
-        <input type="number" id="deliveryInterval" required>
-      </fieldset>
-
-      <button type="submit">ثبت مددجو</button>
-    </form>
+          <button type="submit" class="btn btn-primary submit-button">
+            <i class="fas fa-save"></i> ثبت مددجو
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 
-  <script type="module">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script> <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getFirestore, collection, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"; // برای تابع logoutUser
 
     const firebaseConfig = {
       apiKey: "AIzaSyA08vHjfTM18hyZUjTfNtBpt-oC0xmgKFE",
@@ -68,6 +101,7 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const auth = getAuth(app); // مقداردهی اولیه Auth برای logout
 
     const form = document.getElementById("patientForm");
     form.addEventListener("submit", async (e) => {
@@ -87,12 +121,39 @@
 
       try {
         await addDoc(collection(db, "patients"), newPatient);
-        alert("✅ مددجو با موفقیت ثبت شد");
+        Toastify({
+          text: "✅ مددجو با موفقیت ثبت شد!",
+          duration: 3000,
+          close: true,
+          gravity: "top",
+          position: "left",
+          backgroundColor: "#4CAF50", // سبز
+        }).showToast();
         form.reset();
       } catch (err) {
-        alert("خطا در ثبت مددجو: " + err.message);
+        console.error("خطا در ثبت مددجو: ", err); // نمایش خطای دقیق در کنسول
+        Toastify({
+          text: "❌ خطا در ثبت مددجو: " + err.message,
+          duration: 5000,
+          close: true,
+          gravity: "top",
+          position: "left",
+          backgroundColor: "#F44336", // قرمز
+        }).showToast();
       }
     });
+
+    // تابع خروج (Logout) - از dashboard.js به اینجا منتقل شد
+    window.logoutUser = function() {
+      signOut(auth).then(() => {
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userUID");
+        window.location.href = "index.html"; // برگشت به صفحه ورود
+      }).catch((error) => {
+        console.error("خطا در خروج: ", error);
+        alert("خطا در خروج: " + error.message);
+      });
+    };
   </script>
 </body>
 </html>
