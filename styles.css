@@ -1,4 +1,143 @@
+/* Add these styles to your existing styles.css */
 
+body {
+    /* Existing styles */
+    display: flex; /* changed to flex for full page layout */
+    min-height: 100vh; /* ensure body takes full height */
+}
+
+.main-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: #f8f9fc; /* Use a light background for main content */
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-title {
+    font-size: 1.8rem; /* Larger title */
+    font-weight: bold;
+    color: #333;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Form Styling */
+.form-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    max-width: 900px; /* Limit form width */
+    width: 100%;
+    align-self: center; /* Center the form in the content area */
+}
+
+.patient-form-grid {
+    display: grid;
+    gap: 1.5rem; /* Space between grid items */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+}
+
+.form-fieldset {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem; /* Space between fieldsets */
+    grid-column: 1 / -1; /* Make fieldsets span full width in grid */
+}
+
+.form-fieldset legend {
+    font-weight: bold;
+    color: var(--primary);
+    padding: 0 0.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.input-group {
+    margin-bottom: 1rem; /* Space between input groups within a fieldset */
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group:last-of-type {
+    margin-bottom: 0; /* No margin after last input group */
+}
+
+.input-group label {
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.input-group input,
+.input-group select {
+    padding: 0.9rem; /* Slightly larger padding for inputs */
+    border: 1px solid var(--border);
+    border-radius: 8px; /* More rounded corners */
+    font-family: 'Vazir', sans-serif; /* Ensure Vazir font */
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.2); /* Light primary shadow on focus */
+    outline: none;
+}
+
+.submit-button {
+    grid-column: 1 / -1; /* Make button span full width in grid */
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.submit-button:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px); /* Slight lift on hover */
+}
 :root {
     --primary: #4e73df;
     --primary-light: #6c89f5;
