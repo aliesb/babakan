@@ -1,180 +1,464 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <title>ثبت مددجو جدید</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="styles.css"> 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ثبت مددجو جدید</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4e73df;
+            --primary-light: #6c89f5;
+            --secondary: #36b9cc;
+            --warning: #f6c23e;
+            --danger: #e74a3b;
+            --white: #ffffff;
+            --border: #e3e6f0;
+            --text-muted: #858796;
+        }
+
+        body {
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fb;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        aside {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        aside h2 {
+            margin-bottom: 30px;
+            font-size: 20px;
+        }
+
+        aside a {
+            color: white;
+            text-decoration: none;
+            margin: 10px 0;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        aside a:hover {
+            color: #1abc9c;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 30px;
+        }
+
+        header {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
+            max-width: 800px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #16a085;
+        }
+
+        /* اضافی: استایل‌های مدرن */
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 2rem;
+            background-color: #f8f9fc;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .form-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            max-width: 900px;
+            width: 100%;
+            align-self: center;
+        }
+
+        .patient-form-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .form-fieldset {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            grid-column: 1 / -1;
+        }
+
+        .form-fieldset legend {
+            font-weight: bold;
+            color: var(--primary);
+            padding: 0 0.5rem;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+
+        .input-group:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .input-group label {
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            padding: 0.9rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.2);
+            outline: none;
+        }
+
+        .btn {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .alert {
+            margin-bottom: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Login Styles */
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container input {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .error {
+            color: red;
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="main-wrapper">
-    <div class="sidebar">
-      <div class="sidebar-header">
-        <img src="clinic-logo.png" alt="لوگو کلینیک" class="clinic-logo"> <div class="clinic-name">کلینیک بابکان</div>
-        <div class="clinic-slogan">درمان ریشه‌ای، زندگی جدید</div>
-      </div>
-      <ul class="sidebar-menu">
-        <li class="menu-item"><a href="dashboard.html"><i class="fas fa-home"></i> <span>داشبورد</span></a></li>
-        <li class="menu-item active"><a href="add-patient.html"><i class="fas fa-user-plus"></i> <span>ثبت مددجو جدید</span></a></li>
-        <li class="menu-item"><a href="patients.html"><i class="fas fa-list"></i> <span>لیست بیماران</span></a></li>
-        <li class="menu-item"><a href="medications.html"><i class="fas fa-capsules"></i> <span>مدیریت دارو</span></a></li>
-        <li class="menu-item"><a href="#" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> <span>خروج</span></a></li>
-      </ul>
-    </div>
+<div class="main-wrapper">
+    <aside>
+        <h2>منوی سامانه</h2>
+        <a href="dashboard.html">🏠 داشبورد</a>
+        <a href="patients.html">📄 لیست بیماران</a>
+        <a href="add-patient.html">➕ ثبت مددجو</a>
+        <a href="medications.html">💊 مدیریت دارو</a>
+        <a href="#" onclick="logout()">🚪 خروج</a>
+    </aside>
 
-    <div class="content-area">
-      <header class="header">
-        <h1 class="header-title">ثبت اطلاعات مددجو جدید</h1>
-        <div class="user-profile">
-          <span class="user-avatar">AD</span> <span>مدیر سیستم</span>
-        </div>
-      </header>
+    <main class="content-area">
+        <header>➕ ثبت مددجو جدید</header>
+        <form id="patientForm" class="patient-form-grid" onsubmit="submitPatient(event)">
+            <fieldset class="form-fieldset">
+                <legend>اطلاعات فردی</legend>
+                <div class="input-group">
+                    <label for="fileNumber">شماره پرونده</label>
+                    <input type="text" id="fileNumber" required>
+                </div>
+                <div class="input-group">
+                    <label for="fullName">نام و نام خانوادگی</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div class="input-group">
+                    <label for="nationalId">کد ملی</label>
+                    <input type="text" id="nationalId" required>
+                </div>
+                <div class="input-group">
+                    <label for="phone">شماره تماس</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="birthdate">سال تولد</label>
+                    <input type="number" id="birthdate" min="1300" max="1450">
+                </div>
+            </fieldset>
 
-      <div class="form-card">
-        <form id="patientForm" class="patient-form-grid">
+            <fieldset class="form-fieldset">
+                <legend>اطلاعات درمانی</legend>
+                <div class="form-group">
+                    <label for="treatmentType">نوع درمان</label>
+                    <select id="treatmentType">
+                        <option value="opium">اپیوم</option>
+                        <option value="methadone">متادون</option>
+                        <option value="bup">بوپرونورفین</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dose">دوز مصرفی روزانه</label>
+                    <input type="text" id="dose">
+                </div>
+                <div class="form-group">
+                    <label for="startDate">تاریخ شروع درمان</label>
+                    <input type="text" id="startDate">
+                </div>
+                <div class="form-group">
+                    <label for="deliveryDay">روز تحویل دارو</label>
+                    <input type="text" id="deliveryDay" required>
+                </div>
+                <div class="form-group">
+                    <label for="notes">یادداشت تکمیلی</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+            </fieldset>
 
-          <fieldset class="form-fieldset">
-            <legend>اطلاعات فردی</legend>
-            <div class="input-group">
-              <label for="fileNumber">شماره پرونده</label>
-              <input type="text" id="fileNumber" placeholder="شماره پرونده منحصر به فرد" required>
-            </div>
-            <div class="input-group">
-              <label for="fullName">نام و نام خانوادگی</label>
-              <input type="text" id="fullName" placeholder="نام و نام خانوادگی مددجو" required>
-            </div>
-            <div class="input-group">
-              <label for="nationalId">کد ملی</label>
-              <input type="text" id="nationalId" pattern="\d{10}" title="کد ملی باید 10 رقم باشد" placeholder="مثال: 1234567890" required>
-            </div>
-            <div class="input-group">
-              <label for="phone">شماره تماس (موبایل)</label>
-              <input type="tel" id="phone" placeholder="مثال: 09123456789" required>
-            </div>
-            <div class="input-group">
-              <label for="birthYear">سال تولد</label>
-              <input type="number" id="birthYear" min="1300" max="1500" placeholder="مثال: 1370" required>
-            </div>
-          </fieldset>
-
-          <fieldset class="form-fieldset">
-            <legend>اطلاعات درمانی</legend>
-            <div class="input-group">
-              <label for="treatmentType">نوع درمان</label>
-              <select id="treatmentType" required>
-                <option value="">انتخاب کنید...</option>
-                <option>نگهدارنده شربت اپیوم</option>
-                <option>نگهدارنده شربت متادون</option>
-                <option>نگهدارنده قرص بوپرونورفین</option>
-              </select>
-            </div>
-            <div class="input-group">
-              <label for="dailyDose">دوز روزانه (مثلاً 18 سی‌سی)</label>
-              <input type="text" id="dailyDose" placeholder="مثال: 18 سی‌سی" required>
-            </div>
-            <div class="input-group">
-              <label for="treatmentDuration">مدت دوره درمان (روز)</label>
-              <input type="number" id="treatmentDuration" min="1" placeholder="مثال: 90" required>
-            </div>
-            <div class="input-group">
-              <label for="deliveryInterval">فاصله روزهای تحویل (مثلاً هر 14 روز)</label>
-              <input type="number" id="deliveryInterval" min="1" placeholder="مثال: 14" required>
-            </div>
-             <div class="input-group">
-              <label for="deliveryDay">روز تحویل دارو</label>
-              <input type="text" id="deliveryDay" placeholder="مثلاً شنبه" required>
-            </div>
-             <div class="input-group">
-              <label for="notes">یادداشت تکمیلی</label>
-              <textarea id="notes" rows="3" placeholder="یادداشت‌های بیشتر..."></textarea>
-            </div>
-          </fieldset>
-
-          <button type="submit" class="btn btn-primary submit-button">
-            <i class="fas fa-save"></i> ثبت مددجو
-          </button>
+            <button type="submit">ثبت اطلاعات مددجو</button>
         </form>
-      </div>
-    </div>
-  </div>
+    </main>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script type="module">
-    // ایمپورت‌های Firebase SDK
+<script type="module">
+    // Import necessary Firebase modules
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getFirestore, collection, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
     import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js';
 
+    // Firebase configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyA08vHjfTM18hyZUjTfNtBpt-oC0xmgKFE",
-      authDomain: "babakan-clinic.firebaseapp.com",
-      projectId: "babakan-clinic",
-      storageBucket: "babakan-clinic.firebasestorage.app",
-      messagingSenderId: "188319180301",
-      appId: "1:188319180301:web:383b8fc0dd0cdf06f95744",
-      measurementId: "G-QN4GJS4VYW"
+        apiKey: "AIzaSyA08vHjfTM18hyZUjTfNtBpt-oC0xmgKFE",
+        authDomain: "babakan-clinic.firebaseapp.com",
+        projectId: "babakan-clinic",
+        storageBucket: "babakan-clinic.firebasestorage.app",
+        messagingSenderId: "188319180301",
+        appId: "1:188319180301:web:383b8fc0dd0cdf06f95744"
     };
 
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
+    const storage = getStorage(app);
 
-    const form = document.getElementById("patientForm");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const newPatient = {
-        fileNumber: document.getElementById("fileNumber").value,
-        fullName: document.getElementById("fullName").value,
-        nationalId: document.getElementById("nationalId").value,
-        phone: document.getElementById("phone").value,
-        birthYear: +document.getElementById("birthYear").value,
-        treatmentType: document.getElementById("treatmentType").value,
-        dailyDose: document.getElementById("dailyDose").value,
-        treatmentDuration: +document.getElementById("treatmentDuration").value,
-        deliveryInterval: +document.getElementById("deliveryInterval").value,
-        deliveryDay: document.getElementById("deliveryDay").value,
-        notes: document.getElementById("notes").value, // اضافه شدن یادداشت تکمیلی
-        createdAt: Timestamp.now()
-      };
-
-      try {
-        await addDoc(collection(db, "patients"), newPatient);
-        Toastify({
-          text: "✅ مددجو با موفقیت ثبت شد!",
-          duration: 3000,
-          close: true,
-          gravity: "top",
-          position: "left",
-          backgroundColor: "#4CAF50",
-        }).showToast();
-        form.reset();
-      } catch (err) {
-        console.error("خطا در ثبت مددجو: ", err);
-        Toastify({
-          text: "❌ خطا در ثبت مددجو: " + err.message,
-          duration: 5000,
-          close: true,
-          gravity: "top",
-          position: "left",
-          backgroundColor: "#F44336",
-        }).showToast();
-      }
+    // Check user authentication
+    auth.onAuthStateChanged(user => {
+        if (!user) {
+            window.location.href = "login.html";
+        }
     });
 
-    window.logoutUser = function() {
-      signOut(auth).then(() => {
-        localStorage.removeItem("userEmail");
-        localStorage.removeItem("userUID");
-        window.location.href = "index.html";
-      }).catch((error) => {
-        console.error("خطا در خروج: ", error);
-        alert("خطا در خروج: " + error.message);
-      });
-    };
-  </script>
+    // Function to logout
+    function logout() {
+        auth.signOut().then(() => {
+            window.location.href = "login.html";
+        }).catch(error => {
+            console.error("Logout error:", error);
+            alert("Failed to logout. Please try again.");
+        });
+    }
+
+
+
+    // Function to handle form submission
+    async function submitPatient(event) {
+        event.preventDefault();
+
+        const fileNumber = document.getElementById('fileNumber').value;
+        const fullName = document.getElementById('fullName').value;
+        const nationalId = document.getElementById('nationalId').value;
+        const phone = document.getElementById('phone').value;
+        const birthdateInput = document.getElementById('birthdate').value;  // Changed to ID
+        const treatmentType = document.getElementById('treatmentType').value;
+        const dose = document.getElementById('dose').value;
+        const startDate = document.getElementById('startDate').value;
+        const deliveryDay = document.getElementById('deliveryDay').value;
+        const notes = document.getElementById('notes').value;
+
+
+        // Convert birthdate to Jalali year (only year)
+        let birthYear = '';
+        if (birthdateInput) {
+            const gregorianDate = new Date(birthdateInput);
+             // Use a library like `date-fns-jalali` for accurate Jalali conversion
+            const jalaliDate =  new Date(gregorianDate).toLocaleDateString('fa-IR');
+            birthYear = jalaliDate.split('/')[0]; // Extract the year
+        }
+
+
+        const formData = {
+            file_number: fileNumber,
+            name: fullName,
+            national_id: nationalId,
+            phone: phone,
+            birthdate: birthYear, // Store only the year
+            treatment_type: treatmentType,
+            dose: dose,
+            start_date: startDate,
+            deliveryDay: deliveryDay,
+            notes: notes,
+            createdAt: Timestamp.now()
+        };
+
+        console.log("Form data:", formData);
+
+        try {
+            const docRef = await addDoc(collection(db, "patients"), formData);
+            console.log("Patient inserted successfully with ID: ", docRef.id);
+            alert("✅ مددجو با موفقیت ثبت شد.");
+            document.getElementById('patientForm').reset();
+
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An unexpected error occurred: " + error.message);
+        }
+    }
+</script>
 </body>
 </html>
